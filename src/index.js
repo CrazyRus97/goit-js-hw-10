@@ -18,9 +18,6 @@ countryInfo.style.visibility = 'hidden';
 searchBox.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
 
 
-
-
-
 function onInputSearch(e) {
     e.preventDefault();
 
