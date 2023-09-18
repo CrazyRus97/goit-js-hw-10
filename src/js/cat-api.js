@@ -1,6 +1,7 @@
-
-
-
+const BASE_URL = 'https://api.thecatapi.com/v1/breeds/';
+const searchParams = new URLSearchParams({
+    fields: 'name,capital,population,flags,languages,',
+});
 
 
 

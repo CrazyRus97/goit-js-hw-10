@@ -1,11 +1,13 @@
 // import './css/styles.css';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// import debounce from 'lodash.debounce';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import debounce from 'lodash.debounce';
 // import { fetchCats } from './js/fetchCats';
 
-import axios from "axios";
+const BASE_URL = 'https://api.thecatapi.com/v1';
+const API_KEY = 'live_nfVcZwyyyIPAqha4crBQHfYpwEa0J5NMjeMDQ8GGeyy3ZHdLf1xkNdEvEtuvGrTt'
 
-axios.defaults.headers.common["x-api-key"] = "live_nfVcZwyyyIPAqha4crBQHfYpwEa0J5NMjeMDQ8GGeyy3ZHdLf1xkNdEvEtuvGrTt";
+// import axios from "axios";
+// axios.defaults.headers.common["x-api-key"] = "live_nfVcZwyyyIPAqha4crBQHfYpwEa0J5NMjeMDQ8GGeyy3ZHdLf1xkNdEvEtuvGrTt";
 
 const DEBOUNCE_DELAY = 300;
 
@@ -20,9 +22,15 @@ searchBox.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
 
 const onInputSearch = (e) => {
     e.preventDefault();
-    const endpoint = BASE_URL + '/forecat.json'
+    const endpoint = BASE_URL + '/breeds'
 
     const searchCats = e.target.value.trim();
+
+    const params = new URLSearchParams({
+        k: API_KEY,
+    });
+
+    console.log(params.toString())
 };
 
 
