@@ -4,29 +4,24 @@ ul {
 
 #search-box {
   display: block;
-  margin: 0 auto;
-  margin-top: 6.25rem;
+  /* margin: 0 auto; */
 
   font: inherit;
-  padding: 0.3125rem 0.9375rem;
-  max-width: 20rem;
-  width: 20rem;
-  height: 2.75rem;
+  padding: 4px 4px;
+  max-width: 200px;
+  width: 200px;
+  height: 20px;
   margin-bottom: 16px;
 
   border: none;
   outline: none;
-  border-radius: 3.125rem;
 
   background: transparent;
-  color: #03a9f4;
-  font-weight: 600;
-  font-size: 0.875rem;
-  box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.1),
-    inset 2px 2px 6px rgba(0, 0, 0, 0.75);
+  font-weight: 700;
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.75);
 }
 
-.country-list,
+/* .country-list,
 .country-info {
   display: flex;
   flex-direction: column;
@@ -83,4 +78,4 @@ p {
 }
 p > span {
   color: #ffffff;
-}
+} */
