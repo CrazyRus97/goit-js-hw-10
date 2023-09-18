@@ -1,37 +1,56 @@
-// import './css/styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 import debounce from 'lodash.debounce';
-// import { fetchCats } from './js/fetchCats';
+import SlimSelect from 'slim-select';
+import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
+import { createMarkup, createMarkupCat } from './js/markup';
 
-const BASE_URL = 'https://api.thecatapi.com/v1';
-const API_KEY = 'live_nfVcZwyyyIPAqha4crBQHfYpwEa0J5NMjeMDQ8GGeyy3ZHdLf1xkNdEvEtuvGrTt'
-
-// import axios from "axios";
-// axios.defaults.headers.common["x-api-key"] = "live_nfVcZwyyyIPAqha4crBQHfYpwEa0J5NMjeMDQ8GGeyy3ZHdLf1xkNdEvEtuvGrTt";
 
 const DEBOUNCE_DELAY = 300;
 
 const catInfo = document.querySelector('.cat-info');
 const searchBox = document.querySelector('#search-box');
-const breedSelect = document.querySelector('.breed-select')
-const body = document.querySelector('body');
+const breedSelect = document.querySelector('.breed-select');
+
+const errorMessage = document.querySelector('.error');
+const loaderMessage = document.querySelector('.loader');
 
 catInfo.style.visibility = 'hidden';
+errorMessage.style.visibility = 'hidden';
+loaderMessage.style.visibility = 'hidden';
 
-searchBox.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
+breedSelect.addEventListener('change', onInputSearch);
 
-const onInputSearch = (e) => {
+fetchBreeds()
+  .then(arr => {
+    load();
+    breedSelect.innerHTML = '<option value= "" selected disabled>Choose your cat</option> ';
+    return (breedSelect.innerHTML += createMarkup(arr.data));
+  })
+  .then(() => slim())
+  .catch(fetchError);
+
+function onInputSearch(e) {
     e.preventDefault();
-    const endpoint = BASE_URL + '/breeds'
 
-    const searchCats = e.target.value.trim();
-
-    const params = new URLSearchParams({
-        k: API_KEY,
-    });
-
-    console.log(params.toString())
+    const searchCats = e.target.value;
+    fetchCatByBreed(searchCats)
+      .then(obj => {
+        load();
+        return (catInfo.innerHTML = createMarkupCat(obj.data));
+    })
+    .then(() => success())
+    .catch(fetchError);
 };
+
+const fetchError = () => {
+  Report.failure(errorMessage.textContent, '');
+}
+
+function load() {
+  breedSelect.hidden = false;
+  loaderMessage.classList.remove('loader');
+}
 
 
 
