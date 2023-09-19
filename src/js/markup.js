@@ -20,6 +20,6 @@ function createMarkup(array) {
     <p class="description">${description}</p>
     <h2>Temperament:</h2>
     <p class="description">${temperament}</p></div>`;
-  }
+    }
   
   export { createMarkup, createMarkupCat };

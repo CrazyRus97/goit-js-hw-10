@@ -38,6 +38,7 @@ function onInputSearch(e) {
 };
 
 function fetchError() {
+  loaderMessage.style.visibility = 'hidden';
   errorMessage.style.visibility = 'visible';
 }
 function success() {
