@@ -1,12 +1,8 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
-import debounce from 'lodash.debounce';
 import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
 import { createMarkup, createMarkupCat } from './js/markup';
-
-
-const DEBOUNCE_DELAY = 300;
 
 const catInfo = document.querySelector('.cat-info');
 const breedSelect = document.querySelector('.breed-select');

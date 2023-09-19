@@ -1,5 +1,5 @@
-function createMarkup(arr) {
-    return arr
+function createMarkup(array) {
+    return array
       .map(({ id, name }) => {
         return `<option value="${id}">${name}</option>`;
       })
