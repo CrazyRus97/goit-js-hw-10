@@ -9,13 +9,12 @@ import { createMarkup, createMarkupCat } from './js/markup';
 const DEBOUNCE_DELAY = 300;
 
 const catInfo = document.querySelector('.cat-info');
-const searchBox = document.querySelector('#search-box');
 const breedSelect = document.querySelector('.breed-select');
 
 const errorMessage = document.querySelector('.error');
 const loaderMessage = document.querySelector('.loader');
 
-catInfo.style.visibility = 'hidden';
+//catInfo.style.visibility = 'hidden';
 errorMessage.style.visibility = 'hidden';
 loaderMessage.style.visibility = 'hidden';
 
@@ -23,38 +22,93 @@ breedSelect.addEventListener('change', onInputSearch);
 
 fetchBreeds()
   .then(arr => {
-    load();
     breedSelect.innerHTML = '<option value= "" selected disabled>Choose your cat</option> ';
     return (breedSelect.innerHTML += createMarkup(arr.data));
   })
-  .then(() => slim())
+//   .then(() => slim())
   .catch(fetchError);
 
 function onInputSearch(e) {
     e.preventDefault();
 
     const searchCats = e.target.value;
+
     fetchCatByBreed(searchCats)
       .then(obj => {
-        load();
+        load()
         return (catInfo.innerHTML = createMarkupCat(obj.data));
     })
-    .then(() => success())
-    .catch(fetchError);
+      .catch(fetchError);
 };
 
-const fetchError = () => {
+function fetchError() {
   Report.failure(errorMessage.textContent, '');
 }
-
+function success() {
+  Notify.success('Search was successful!)', '');
+}
 function load() {
-  breedSelect.hidden = false;
-  loaderMessage.classList.remove('loader');
+  loaderMessage.style.visibility = 'visible'
+}
+function slim() {
+  new SlimSelect({
+    select: breedSelect,
+  });
 }
 
 
 
+// const ref = {
+//     selector: document.querySelector('.breed-select'),
+//     divCatInfo: document.querySelector('.cat-info'),
+//     loader: document.querySelector('.loader'),
+//     error: document.querySelector('.error'),
+// };
+// const { selector, divCatInfo, loader, error } = ref;
+// loader.classList.replace('loader', 'is-hidden');
+// error.classList.add('is-hidden');
+// divCatInfo.classList.add('is-hidden');
+// let arrBreedsId = [];
 
+// fetchBreeds()
+// .then(data => {
+//     data.forEach(element => {
+//         arrBreedsId.push({text: element.name, value: element.id});
+//     });
+//     new SlimSelect({
+//         select: selector,
+//         data: arrBreedsId
+//     });
+//     })
+// .catch(onFetchError);
+// selector.addEventListener('change', onSelectBreed);
+
+// function onSelectBreed(event) {
+//     loader.classList.replace('is-hidden', 'loader');
+//     selector.classList.add('is-hidden');
+//     divCatInfo.classList.add('is-hidden');
+//     const breedId = event.currentTarget.value;
+//     fetchCatByBreed(breedId)
+//     .then(data => {
+//         loader.classList.replace('loader', 'is-hidden');
+//         selector.classList.remove('is-hidden');
+//         const { url, breeds } = data[0];
+//         divCatInfo.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div><div class="box"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p><p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`
+//         divCatInfo.classList.remove('is-hidden');
+//     })
+//     .catch(onFetchError);
+// };
+
+// function onFetchError(error) {
+//     selector.classList.remove('is-hidden');
+//     loader.classList.replace('loader', 'is-hidden');
+//     Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!', {
+//         position: 'center-center',
+//         timeout: 5000,
+//         width: '400px',
+//         fontSize: '24px'
+//     });
+// };
 
 
 

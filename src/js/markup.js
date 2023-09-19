@@ -4,14 +4,13 @@ function createMarkup(arr) {
         return `<option value="${id}">${name}</option>`;
       })
       .join('');
-  }
+}
+  
   function createMarkupCat({
-    0: {
       breeds: {
         0: { temperament, name, description },
       },
       url,
-    },
   }) {
     return `
     <img src="${url}" alt="${name}" width="800" height="500" />

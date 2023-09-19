@@ -22,6 +22,7 @@ function fetchBreeds() {
 function fetchCatByBreed(breedId) {
   return axios.get(`${SEARCH_URL}?breed_ids=${breedId}`);
 }
+
 export { fetchBreeds, fetchCatByBreed };
 
 
