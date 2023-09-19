@@ -16,6 +16,7 @@ function createMarkup(array) {
     <img src="${url}" alt="${name}" width="800" height="500" />
     <div>
     <h1 class="title">${name}</h1>
+    <h2>Description:</h2>
     <p class="description">${description}</p>
     <h2>Temperament:</h2>
     <p class="description">${temperament}</p></div>`;
