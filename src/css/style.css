@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #eee;
+  background-color: #eeee;
 }
 
 .error {
@@ -23,4 +23,13 @@ body {
   font-size: 22px;
   font-weight: 400;
   max-width: 50%;
+}
+
+.breed-select {
+  width: 200px;
+  height: 25px;
+  font-weight: 700;
+
+  box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.1),
+    inset 2px 2px 4px rgba(0, 0, 0, 0.75);
 }
