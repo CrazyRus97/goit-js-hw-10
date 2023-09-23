@@ -1,5 +1,4 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { Report } from 'notiflix/build/notiflix-report-aio';
 import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
 import { createMarkup, createMarkupCat } from './js/markup';
@@ -10,9 +9,9 @@ const breedSelect = document.querySelector('.breed-select');
 const errorMessage = document.querySelector('.error');
 const loaderMessage = document.querySelector('.loader');
 
-//catInfo.style.visibility = 'hidden';
 errorMessage.style.visibility = 'hidden';
 loaderMessage.style.visibility = 'hidden';
+catInfo.style.visibility = 'hidden'
 
 breedSelect.addEventListener('change', onInputSearch);
 
@@ -25,30 +24,38 @@ fetchBreeds()
   .catch(fetchError);
 
 function onInputSearch(e) {
-    e.preventDefault();
+   e.preventDefault();
 
-    const searchCats = e.target.value;
+   const catID = e.target.value;
 
-    fetchCatByBreed(searchCats)
-      .then(obj => {
-        load()
-        return (catInfo.innerHTML = createMarkupCat(obj.data));
+   fetchCatByBreed(catID)
+     .then(obj => {
+      console.log(obj.data)
+      console.log(createMarkupCat(obj.data))
+      load()
+      catInfo.innerHTML = createMarkupCat(obj.data);
+      
+      
     })
-      .catch(fetchError);
+    .then(() => success())
+    .catch(fetchError);
 };
 
 function fetchError() {
-  loaderMessage.style.visibility = 'hidden';
   errorMessage.style.visibility = 'visible';
 }
 function success() {
-  Notify.success('Search was successful!)', '');
+  Notify.success('Success!', '');
+  loaderMessage.style.visibility = 'hidden'
+  catInfo.style.visibility = 'visible'
 }
 function load() {
   loaderMessage.style.visibility = 'visible'
 }
-function slim() {
-  new SlimSelect({
-    select: breedSelect,
-  });
-}
+
+
+// function slim() {
+//   new SlimSelect({
+//     select: breedSelect,
+//   });
+// }
