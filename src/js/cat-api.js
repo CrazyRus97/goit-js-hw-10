@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.headers.common["x-api-key"] = "live_VXjg3dwWvByO6dkmwTLmDX4EbYgpNoqo8zYVcWpGYIEyu94h0uGwt2XkPHhjjofn";
-// const API_KEY = "live_nfVcZwyyyIPAqha4crBQHfYpwEa0J5NMjeMtDQ8GGeyy3ZHdLf1xkNdEvEtuvGrT";
+// const API_KEY = "live_VXjg3dwWvByO6dkmwTLmDX4EbYgpNoqo8zYVcWpGYIEyu94h0uGwt2XkPHhjjofn";
 const BASE_URL = 'https://api.thecatapi.com/v1';
 const SEARCH_URL = `https://api.thecatapi.com/v1/images/search`;
 
