@@ -30,11 +30,13 @@ fetchBreeds()
 function onInputSearch(e) {
   e.preventDefault();
 
-   const catID = e.target.value;
+  catInfo.classList.add('is-hidden')
+  load()
+
+  const catID = e.target.value;
 
   fetchCatByBreed(catID)
     .then(obj => {
-      load()
       catInfo.innerHTML = createMarkupCat(obj.data);
     })
     .then(() => fetchSuccess())
