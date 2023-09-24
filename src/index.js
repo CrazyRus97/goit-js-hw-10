@@ -2,6 +2,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
 import { createMarkup, createMarkupCat } from './js/markup';
+import debounce from 'lodash.debounce';
 
 const catInfo = document.querySelector('.cat-info');
 const breedSelect = document.querySelector('.breed-select');
@@ -9,50 +10,50 @@ const breedSelect = document.querySelector('.breed-select');
 const errorMessage = document.querySelector('.error');
 const loaderMessage = document.querySelector('.loader');
 
-errorMessage.style.visibility = 'hidden';
-loaderMessage.style.visibility = 'hidden';
-catInfo.style.visibility = 'hidden'
+// errorMessage.style.visibility = 'hidden';
+// loaderMessage.style.visibility = 'hidden';
+// catInfo.style.visibility = 'hidden'
+// breedSelect.style.visibility = 'hidden'
+const DEBOUNCE_DELAY = 300;
 
-breedSelect.addEventListener('change', onInputSearch);
+breedSelect.addEventListener('change', debounce(onInputSearch, DEBOUNCE_DELAY));
 
 fetchBreeds()
   .then(array => {
     breedSelect.innerHTML = '<option value= "" selected disabled>Choose your cat</option> ';
+    breedSelect.classList.toggle('is-hidden')
     return (breedSelect.innerHTML += createMarkup(array.data));
   })
 //   .then(() => slim())
   .catch(fetchError);
 
 function onInputSearch(e) {
-   e.preventDefault();
+  e.preventDefault();
 
    const catID = e.target.value;
 
-   fetchCatByBreed(catID)
-     .then(obj => {
-      console.log(obj.data)
-      console.log(createMarkupCat(obj.data))
+  fetchCatByBreed(catID)
+    .then(obj => {
       load()
       catInfo.innerHTML = createMarkupCat(obj.data);
-      
-      
     })
-    .then(() => success())
+    .then(() => fetchSuccess())
     .catch(fetchError);
 };
 
 function fetchError() {
-  errorMessage.style.visibility = 'visible';
+  errorMessage.classList.remove('is-hidden')
 }
-function success() {
+function fetchSuccess() {
   Notify.success('Success!', '');
-  loaderMessage.style.visibility = 'hidden'
-  catInfo.style.visibility = 'visible'
+  catInfo.classList.remove('is-hidden')
+  loaderMessage.classList.add('is-hidden')
+  console.log('stop loading')
 }
 function load() {
-  loaderMessage.style.visibility = 'visible'
+  console.log('loading...')
+  loaderMessage.classList.remove('is-hidden')
 }
-
 
 // function slim() {
 //   new SlimSelect({
